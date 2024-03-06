@@ -2,7 +2,8 @@ import React from 'react';
 import PostCreate from './PostCreate';
 import PostList from './PostList';
 
-export default () => {
+
+const App = () => {
     return <div className = 'container'>
         <h1> Create Post</h1>
         <PostCreate />
@@ -12,4 +13,6 @@ export default () => {
         <hr />
          </div>
          
+         
 };
+export default App;
