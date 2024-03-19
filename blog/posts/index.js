@@ -10,11 +10,13 @@ app.use(cors());
 
 const posts = {};
 
+
+// This was replaced by query
 app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 
@@ -24,7 +26,7 @@ app.post('/posts', async (req, res) => {
   };
 
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-clusterip-srv:4005/events', {
       type: 'PostCreated',
       data: {
         id,
@@ -34,7 +36,7 @@ app.post('/posts', async (req, res) => {
   } catch (error) {
     console.error('Error sending event to event-bus:', error.message);
     // Respond with error or handle accordingly
-  }
+  } 
 
   res.status(201).send(posts[id]);
 });
@@ -47,5 +49,6 @@ app.post('/events', (req, res) =>{
 })
 
 app.listen(4000, () => {
+  console.log('v550')
   console.log('Listening on 4000');
 });
